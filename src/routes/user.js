@@ -1,11 +1,11 @@
+const UserController = require("../controllers/user");
+
 module.exports = {
-  createGuideRoute: {
-    method: "post",
-    path: "/guides/new",
+  sendHelloRoute: {
+    method: "get",
+    path: "/hello",
     middleware: [
-      (req, res, next) => {
-        next();
-      },
+      (req, res, next) => UserController.sendHelloController(req, res, next),
     ],
   },
 };

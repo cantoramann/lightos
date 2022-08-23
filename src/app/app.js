@@ -8,11 +8,13 @@ class App {
     this.#app = require("express")();
     this.applyPreHandlers();
     this.applyRoutes();
+    this.applyPostHandlers();
+    this.run();
   }
 
   applyPreHandlers() {
-    this.#app.use(require("helmet"));
-    this.#app.use(require("hpp"));
+    this.#app.use(require("helmet")());
+    this.#app.use(require("hpp")());
   }
 
   applyRoutes() {
@@ -24,6 +26,10 @@ class App {
   }
 
   applyPostHandlers() {}
+
+  run() {
+    this.#app.listen(8000, () => {});
+  }
 }
 
 module.exports = App;
