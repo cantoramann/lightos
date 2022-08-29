@@ -1,4 +1,9 @@
 const { getRoutes } = require("./launch-util");
+const { sendPostHandler } = require("../middleware/posthandlers/send");
+const { errorsPostHandler } = require("../middleware/posthandlers/errors");
+const { cookiesPostHandler } = require("../middleware/posthandlers/cookies");
+// const { errorsPostHandler } = require("./posthandlers/errors");
+// const { sendHelloController } = require("../controllers/user");
 
 class App {
   #app;
@@ -19,13 +24,15 @@ class App {
 
   applyRoutes() {
     this.#app.use(getRoutes()); // all routes are applied here
-
     this.routes = getRoutes();
-    console.log(this.routes);
     this.#app.use(this.routes);
   }
 
-  applyPostHandlers() {}
+  applyPostHandlers() {
+    this.#app.use(sendPostHandler);
+    this.#app.use(errorsPostHandler);
+    this.#app.use(cookiesPostHandler);
+  }
 
   run() {
     this.#app.listen(8000, () => {});
