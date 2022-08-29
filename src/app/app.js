@@ -2,15 +2,15 @@ const { getRoutes } = require("./launch-util");
 const { sendPostHandler } = require("../middleware/posthandlers/send");
 const { errorsPostHandler } = require("../middleware/posthandlers/errors");
 const { cookiesPostHandler } = require("../middleware/posthandlers/cookies");
-// const { errorsPostHandler } = require("./posthandlers/errors");
-// const { sendHelloController } = require("../controllers/user");
+require("express-async-errors");
+const express = require("express");
 
 class App {
   #app;
   routes;
 
   constructor() {
-    this.#app = require("express")();
+    this.#app = express();
     this.applyPreHandlers();
     this.applyRoutes();
     this.applyPostHandlers();
@@ -20,18 +20,17 @@ class App {
   applyPreHandlers() {
     this.#app.use(require("helmet")());
     this.#app.use(require("hpp")());
+    this.#app.use(express.json());
   }
 
   applyRoutes() {
     this.#app.use(getRoutes()); // all routes are applied here
     this.routes = getRoutes();
-    this.#app.use(this.routes);
+    this.#app.use("/api", this.routes, cookiesPostHandler, sendPostHandler);
   }
 
   applyPostHandlers() {
-    this.#app.use(sendPostHandler);
     this.#app.use(errorsPostHandler);
-    this.#app.use(cookiesPostHandler);
   }
 
   run() {

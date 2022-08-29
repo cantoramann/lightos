@@ -12,7 +12,6 @@ exports.getRoutes = () => {
       // no check needed to see if there is index.js
 
       filename = filename.replace(".js", "");
-
       const routeFile = require(path.join(__dirname, "../routes", filename));
       for (const [_, route] of Object.entries(routeFile)) {
         // value itself is the route

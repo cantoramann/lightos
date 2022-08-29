@@ -16,4 +16,14 @@ module.exports = {
       (req, res, next) => UserController.fakeLoginController(req, res, next),
     ],
   },
+
+  faultyRoute: {
+    method: "get",
+    path: "/faulty",
+    middleware: [
+      (req, res, next) => {
+        throw new Error("Faulty route");
+      },
+    ],
+  },
 };
