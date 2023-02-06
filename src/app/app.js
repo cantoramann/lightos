@@ -21,6 +21,7 @@ class App {
     this.#app.use(require("helmet")());
     this.#app.use(require("hpp")());
     this.#app.use(express.json());
+    this.#app.use(express.urlencoded({ extended: true }));
   }
 
   applyRoutes() {

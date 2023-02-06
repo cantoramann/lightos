@@ -1,6 +1,4 @@
-exports.errorsPostHandler = (err, req, res) => {
-  console.log("here");
-  console.log("here");
+exports.errorsPostHandler = (err, req, res, next) => {
   return res.status(500).json({
     status: "error",
     message: err.message,
