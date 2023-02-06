@@ -16,7 +16,7 @@ sendHelloRoute: {
 }
 ```
 
-#### Global error handling
+#### Global cookie handling
 
 ```javascript
 // ...
